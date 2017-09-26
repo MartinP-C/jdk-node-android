@@ -8,7 +8,13 @@ ENV ANDROID_BUILD_TOOLS 24.0.0
 ENV ANDROID_SDK_TOOLS 24.4.1
 
 RUN apt-get update && \
-    apt-get install --no-install-recommends -y apt-transport-https wget tar unzip lib32stdc++6 lib32z1 && \
+    apt-get install --no-install-recommends -y \
+        apt-transport-https \
+        wget \
+        tar \
+        unzip \
+        lib32stdc++6 \
+        lib32z1 && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash && \
@@ -24,6 +30,4 @@ RUN apt-get update && \
     echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter build-tools-${ANDROID_BUILD_TOOLS} && \
     echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-android-m2repository && \
     echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-google-google_play_services && \
-    echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-google-m2repository && \
-    export ANDROID_HOME=$PWD/android-sdk-linux && \
-    export PATH=$PATH:$PWD/android-sdk-linux/platform-tools/
+    echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-google-m2repository
